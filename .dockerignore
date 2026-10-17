@@ -1,0 +1,33 @@
+# Build artifacts
+.next/
+out/
+node_modules/
+.rust-cache/
+
+# Rust build
+rust-utils/target/
+
+# Runtime data
+data/
+db/
+*.db
+*.db-journal
+*.log
+dev.log
+server.log
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# VCS
+.git/
+.gitignore

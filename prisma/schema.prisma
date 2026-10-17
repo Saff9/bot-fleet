@@ -1,0 +1,48 @@
+// Bot Fleet — mini PaaS that runs inside a single Railway service
+// Learn more: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Bot {
+  id             String    @id @default(cuid())
+  name           String
+  githubUrl      String
+  branch         String    @default("main")
+  startCommand   String
+  installCommand String?
+  // Encrypted wire-format string (enc:v1:...) when written by the app,
+  // OR legacy plaintext JSON for backward compat (auto-migrated on next save).
+  envVars        String    @default("{}")
+  status         String    @default("pending")
+  pid            Int?
+  startedAt      DateTime?
+  lastExitCode   Int?
+  lastError      String?
+  restartCount   Int       @default(0)
+  autoRestart    Boolean   @default(true)
+  workDir        String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([status])
+}
+
+model AuditEvent {
+  id        String   @id @default(cuid())
+  botId     String?
+  level     String // info | warn | error
+  event     String
+  message   String
+  createdAt DateTime @default(now())
+
+  @@index([botId])
+  @@index([createdAt])
+  @@index([event])
+}

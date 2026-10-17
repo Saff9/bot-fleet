@@ -1,0 +1,30 @@
+# Render Blueprint — see https://render.com/docs/blueprint-spec
+# After pushing this repo to GitHub, click "Deploy to Render" or run:
+#   render blueprint init
+# This creates the web service + disk automatically.
+
+services:
+  - type: web
+    name: bot-fleet
+    runtime: docker
+    plan: free  # change to 'starter' for always-on (no sleep)
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        value: file:/data/bots.db
+      - key: BOT_FLEET_ADMIN_PASSWORD
+        sync: false  # set in Render dashboard (secret)
+      - key: BOT_FLEET_MASTER_KEY
+        sync: false  # set in Render dashboard (secret)
+      - key: BOT_FLEET_SESSION_SECRET
+        sync: false  # set in Render dashboard (secret)
+      - key: GITHUB_TOKEN
+        sync: false  # optional — only needed for private repos
+    disk:
+      name: bot-fleet-data
+      mountPath: /data
+      sizeGB: 1  # increase if you host many bots with large repos

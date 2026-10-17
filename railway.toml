@@ -1,0 +1,27 @@
+[deploy]
+# Railway service config — see https://docs.railway.com/reference/config-as-code
+
+# Build with Docker (uses the multi-stage Dockerfile in the repo)
+builder = "dockerfile"
+dockerfilePath = "Dockerfile"
+
+# Healthcheck: Railway will probe this endpoint to know when the service is up
+healthcheckPath = "/api/health"
+healthcheckTimeout = 30
+
+# Persistent volume — mount at /data so SQLite + bot working dirs survive restarts
+[[volume]]
+mountpoint = "/data"
+# size is auto-managed by Railway
+
+# Environment variables Railway will set automatically:
+#  - PORT (we read it in the runtime stage)
+#  - DATABASE_URL is set in the Dockerfile
+#
+# You MUST set these in the Railway dashboard (Variables tab):
+#   BOT_FLEET_ADMIN_PASSWORD=<your strong password>
+#   BOT_FLEET_MASTER_KEY=<openssl rand -hex 32>
+#   BOT_FLEET_SESSION_SECRET=<openssl rand -hex 32>
+#
+# Optional:
+#   GITHUB_TOKEN=<for cloning private repos>

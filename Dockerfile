@@ -1,8 +1,8 @@
 # ─── Stage 1: Build the Rust log-archival utility ──────────────────────────
 FROM rust:1.99-slim AS rust-builder
 
-WORKDIR /build
-COPY rust-utils/Cargo.toml rust-utils/Cargo.lock* ./rust-utils/
+WORKDIR /build/rust-utils
+COPY rust-utils/Cargo.toml rust-utils/Cargo.lock* ./
 # Copy the source — if Cargo.lock is missing, cargo will generate one
 COPY rust-utils/src ./src
 
@@ -24,8 +24,8 @@ RUN bun install --frozen-lockfile || bun install
 # Copy the rest of the app
 COPY . .
 
-# Build the Rust binary is already built in stage 1 — copy it in
-COPY --from=rust-builder /build/target/release/compress-logs ./rust-utils/bin/compress-logs
+# Copy the Rust binary built in stage 1
+COPY --from=rust-builder /build/rust-utils/target/release/compress-logs ./rust-utils/bin/compress-logs
 
 # Push the Prisma schema (creates the DB if missing)
 RUN bun run db:generate

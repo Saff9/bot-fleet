@@ -11,10 +11,8 @@
 
 | Platform | Button | Free tier notes |
 |---|---|---|
-| **Railway** | [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/button/new?url=https://github.com/YOUR_USERNAME/bot-fleet) | $5 trial credit, 0.5 GB RAM, 30 days free |
-| **Render** | [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/YOUR_USERNAME/bot-fleet) | 1 free web service (sleeps after 15 min) |
-
-> ⚠️ Replace `YOUR_USERNAME/bot-fleet` in the URLs above with your own GitHub repo path after you fork/push this code.
+| **Railway** | [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/button/new?url=https://github.com/Saff9/bot-fleet) | $5 trial credit, 0.5 GB RAM, 30 days free |
+| **Render** | [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Saff9/bot-fleet) | 1 free web service (sleeps after 15 min) |
 
 ## ✨ Features
 

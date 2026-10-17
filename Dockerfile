@@ -27,6 +27,10 @@ COPY . .
 # Copy the Rust binary built in stage 1
 COPY --from=rust-builder /build/rust-utils/target/release/compress-logs ./rust-utils/bin/compress-logs
 
+# Provide a build-time DATABASE_URL so Prisma can be imported during prerender.
+# This is a throwaway file — the runtime stage uses file:/data/bots.db instead.
+ENV DATABASE_URL=file:/tmp/build.db
+
 # Push the Prisma schema (creates the DB if missing)
 RUN bun run db:generate
 
